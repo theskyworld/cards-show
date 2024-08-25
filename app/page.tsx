@@ -1,4 +1,4 @@
 
 export default function Home() {
-  return <p>/postreceive</p>;
+  return <p>/github-webhook</p>;
 }
