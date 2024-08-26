@@ -1,13 +1,14 @@
+import ContentHeader from "@/components/ContentHeader";
 import Filters from "@/components/Filters";
 import ResourceCard from "@/components/ResourceCard";
 import SearchForm from "@/components/SearchForm";
 import { getResources } from "@/sanity/actions";
 
 interface HomePageProps {
-  searchParams : {[key:string] :string | undefined}
+  searchParams: { [key: string]: string | undefined }
 }
 
-export default async function HomePage({ searchParams} : HomePageProps) {
+export default async function HomePage({ searchParams }: HomePageProps) {
   const resources = await getResources({
     query: searchParams?.query || "", // url中的query参数，来自于搜索框
     category: searchParams?.category || "", // url中的category参数，来自于过滤条件
@@ -28,18 +29,24 @@ export default async function HomePage({ searchParams} : HomePageProps) {
         </section>
         <Filters />
         {/* 展示数据 */}
-        <section className="flex-center mt-6 w-full flex-col sm:mt-20">
-          <div className="mt-12 flex w-full flex-wrap justify-center gap-16 sm:justify-start">
-            {
-              resources?.length > 0 ? (
-                resources?.map((resource: any) => (
-                  <ResourceCard {...resource} key={resource._id}/>
-                ))) : (
-                <p className="body-regular text-white-400">No resources found</p>
-              )
-            }
-          </div>
-        </section>
+        {
+          (searchParams?.query || searchParams?.category) && (
+            <section className="flex-center mt-6 w-full flex-col sm:mt-20">
+              <ContentHeader {...searchParams} />
+              <div className="mt-12 flex w-full flex-wrap justify-center gap-16 sm:justify-start">
+                {
+                  resources?.length > 0 ? (
+                    resources?.map((resource: any) => (
+                      <ResourceCard {...resource} key={resource._id} />
+                    ))) : (
+                    <p className="body-regular text-white-400">No resources found</p>
+                  )
+                }
+              </div>
+            </section>
+          )
+        }
+
       </main>
 
     </>
