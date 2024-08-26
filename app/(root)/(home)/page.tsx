@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import SearchForm from "@/components/SearchForm";
 
 export default function HomePage() {
   return (
@@ -11,6 +11,8 @@ export default function HomePage() {
               JavaScript Mastery Resources
             </h1>
           </div>
+          {/* 搜索框 */}
+          <SearchForm/>
         </section>
       </main>
 
