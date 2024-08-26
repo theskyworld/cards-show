@@ -7,7 +7,7 @@ export default function Navbar() {
       <div className="flex-between mx-auto w-full max-w-screen-2xl px-6 xs:px-8 sm:px-16">
         <Link href="/">
           <Image
-            src=""
+            src="/jsm-logo.svg"
             alt="logo"
             width={55}
             height={40}
