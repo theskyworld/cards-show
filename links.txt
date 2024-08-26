@@ -1,1 +1,2 @@
 视频教程链接：https://www.youtube.com/watch?v=3WCIyNOrzwM&list=PL6QREj8te1P7gixBDSU8JLvQndTEEX3c3&index=4
+shadcn-ui组件库：https://ui.shadcn.com/docs
