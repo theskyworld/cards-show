@@ -2,18 +2,21 @@ import ContentHeader from "@/components/ContentHeader";
 import Filters from "@/components/Filters";
 import ResourceCard from "@/components/ResourceCard";
 import SearchForm from "@/components/SearchForm";
-import { getResources } from "@/sanity/actions";
+import { getResources,getResourcesPlayList } from "@/sanity/actions";
 
 interface HomePageProps {
   searchParams: { [key: string]: string | undefined }
 }
 
 export default async function HomePage({ searchParams }: HomePageProps) {
+  // 获取指定的resource
   const resources = await getResources({
     query: searchParams?.query || "", // url中的query参数，来自于搜索框
     category: searchParams?.category || "", // url中的category参数，来自于过滤条件
     page: "1"
   })
+  // 获取resource的分类
+  const resourcesPlayList = await getResourcesPlayList()
   return (
     <>
       <main className="flex-center paddings mx-auto w-full max-w-screen-2xl flex-col">
@@ -46,7 +49,19 @@ export default async function HomePage({ searchParams }: HomePageProps) {
             </section>
           )
         }
-
+        {/* 展示resource分类 */}
+        {resourcesPlayList.map((item: any) => (
+        <section key={item._id} className="flex-center mt-6 w-full flex-col sm:mt-20">
+          <h1 className="heading3 self-start text-white-800">{item.title}</h1>
+          <div className="mt-12 flex w-full flex-wrap justify-center gap-16 sm:justify-start">
+            {item.resources.map((resource: any) => (
+                <ResourceCard 
+                  {...resource} key={resource._id}
+                />
+              ))}
+          </div>
+        </section>
+      ))}
       </main>
 
     </>
