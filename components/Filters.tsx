@@ -1,5 +1,7 @@
 "use client";
 
+import { formUrlQuery } from "@/sanity/utils";
+import { useSearchParams, useRouter } from "next/navigation";
 import { useState } from "react";
 
 type Link = {
@@ -30,9 +32,29 @@ const links: Link[] = [
 
 ]
 export default function Filters() {
-  const [activeLinkId, setActiveLinkId] = useState(1);
+  const [activeLinkId, setActiveLinkId] = useState<number | null>(1);
+  const searchParams = useSearchParams();
+  const router = useRouter();
   function handleButtonClick(linkId: number) {
-    setActiveLinkId(linkId);
+    // newUrl用于接收拼接参数后的url
+    let newUrl = "";
+    if (activeLinkId === linkId) {
+      setActiveLinkId(null);
+      newUrl = formUrlQuery({
+        params: searchParams.toString(),
+        key: "category", // 在url例如/?category=all中的category
+        value: null
+      })
+    } else {
+      setActiveLinkId(linkId);
+      newUrl = formUrlQuery({
+        params: searchParams.toString(),
+        key: "category",
+        value: links[linkId - 1].title.toLowerCase()
+      })
+    }
+    // 修改url
+    router.push(newUrl, { scroll: false })
   }
   return (
     <ul className="text-white-800 body-text no-scrollbar flex w-full max-w-full gap-2 overflow-auto py-12 sm:max-w-2xl">

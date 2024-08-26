@@ -37,6 +37,8 @@ interface UrlQueryParams {
   keysToRemove?: string[];
 }
 
+// 将过滤条件添加到url中，设置url中的参数
+// 例如点击all按钮时，url中对应变化为/?category=all
 export function formUrlQuery({
   params,
   key,
