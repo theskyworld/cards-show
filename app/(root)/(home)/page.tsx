@@ -1,3 +1,4 @@
+import Filters from "@/components/Filters";
 import SearchForm from "@/components/SearchForm";
 
 export default function HomePage() {
@@ -12,8 +13,10 @@ export default function HomePage() {
             </h1>
           </div>
           {/* 搜索框 */}
-          <SearchForm/>
+          <SearchForm />
         </section>
+        <Filters />
+
       </main>
 
     </>
