@@ -9,8 +9,8 @@ interface HomePageProps {
 
 export default async function HomePage({ searchParams} : HomePageProps) {
   const resources = await getResources({
-    query: "", // url中的query参数，来自于搜索框
-    category: searchParams.category || "", // url中的category参数，来自于过滤条件
+    query: searchParams?.query || "", // url中的query参数，来自于搜索框
+    category: searchParams?.category || "", // url中的category参数，来自于过滤条件
     page: "1"
   })
   return (
