@@ -1,7 +1,14 @@
 import Filters from "@/components/Filters";
+import ResourceCard from "@/components/ResourceCard";
 import SearchForm from "@/components/SearchForm";
+import { getResources } from "@/sanity/actions";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const resources = await getResources({
+    query: "",
+    category: "",
+    page: "1"
+  })
   return (
     <>
       <main className="flex-center paddings mx-auto w-full max-w-screen-2xl flex-col">
@@ -16,7 +23,19 @@ export default function HomePage() {
           <SearchForm />
         </section>
         <Filters />
-
+        {/* 展示数据 */}
+        <section className="flex-center mt-6 w-full flex-col sm:mt-20">
+          <div className="mt-12 flex w-full flex-wrap justify-center gap-16 sm:justify-start">
+            {
+              resources?.length > 0 ? (
+                resources?.map((resource: any) => (
+                  <ResourceCard {...resource} key={resource._id}/>
+                ))) : (
+                <p className="body-regular text-white-400">No resources found</p>
+              )
+            }
+          </div>
+        </section>
       </main>
 
     </>
