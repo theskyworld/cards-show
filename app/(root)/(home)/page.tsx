@@ -3,10 +3,14 @@ import ResourceCard from "@/components/ResourceCard";
 import SearchForm from "@/components/SearchForm";
 import { getResources } from "@/sanity/actions";
 
-export default async function HomePage() {
+interface HomePageProps {
+  searchParams : {[key:string] :string | undefined}
+}
+
+export default async function HomePage({ searchParams} : HomePageProps) {
   const resources = await getResources({
-    query: "",
-    category: "",
+    query: "", // url中的query参数，来自于搜索框
+    category: searchParams.category || "", // url中的category参数，来自于过滤条件
     page: "1"
   })
   return (
