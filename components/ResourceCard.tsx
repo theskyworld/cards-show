@@ -12,9 +12,9 @@ interface ResourceCardProps {
   id: string;
   title: string;
   image: string;
-  downloadedNumber: number;
+  views: number;
 }
-export default function ResourceCard({ id, title, image, downloadedNumber }: ResourceCardProps) {
+export default function ResourceCard({ id, title, image, views:downloadedNumber }: ResourceCardProps) {
   return (
     <Card className="w-full max-w-fit border-0 !bg-transparent sm:max-w-[356px]">
       <Link href={`/resource/${id}`}>
